@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lastlight – Red Data Book Wildlife</title>
+<style>
+:root{--bg:#0d1a13;--bg2:#12251b;--card:#16291f;--ink:#ece4d0;--mute:#a9b3a0;--gold:#c9a24a;--moss:#6f8f5a;--line:rgba(236,228,208,.12);--shadow:0 12px 32px rgba(0,0,0,.45)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.7;background:radial-gradient(1200px 600px at 20% 0,#1b3426,transparent),linear-gradient(180deg,var(--bg),#09120d);background-attachment:fixed}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700}
+nav,.tabs a,.btn,.badge,.facts b,th,button{font-family:"Trebuchet MS",Verdana,sans-serif}
+nav{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:12px 5vw;background:rgba(9,18,13,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font:700 1.4rem Georgia,serif;letter-spacing:3px;color:var(--gold);text-transform:uppercase}
+.tabs{display:flex;flex-wrap:wrap;gap:4px}
+.tabs a{padding:8px 15px;color:var(--mute);text-decoration:none;font-size:.82rem;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid transparent;transition:.3s}
+.tabs a:hover{color:var(--ink)}.tabs a.on{color:var(--gold);border-color:var(--gold)}
+.page{display:none}.page.on{display:block;animation:fade .8s ease}
+@keyframes fade{from{opacity:0}}
+section{padding:60px 5vw;max-width:1180px;margin:auto}
+h2{font-size:2.2rem;margin:0 0 10px;color:var(--ink)}
+h2::after{content:"";display:block;width:60px;height:2px;background:var(--gold);margin-top:12px}
+.sub{color:var(--mute);margin:14px 0 32px;font-style:italic}
+.hero{position:relative;min-height:600px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:70px 6vw;background:linear-gradient(180deg,#07110c 0%,#12301f 45%,#2a4a30 75%,#7a6b3a 100%)}
+.hero .photo{position:absolute;inset:0;background:center/cover no-repeat;opacity:1;transition:opacity 1.2s}
+.hero.has-photo .photo{opacity:1}.hero.has-photo .scene{display:none}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(5,12,8,.25),rgba(5,12,8,.82));pointer-events:none}
+.scene{position:absolute;inset:0;width:100%;height:100%}
+.rays{position:absolute;inset:-20% 0 0;background:repeating-linear-gradient(100deg,transparent 0 90px,rgba(255,226,150,.07) 110px,transparent 150px);transform-origin:top;animation:sway 14s ease-in-out infinite alternate;filter:blur(8px)}
+@keyframes sway{to{transform:skewX(-8deg);opacity:.6}}
+.mist{position:absolute;left:-20%;width:140%;height:220px;bottom:0;background:radial-gradient(ellipse at 50% 100%,rgba(220,230,210,.28),transparent 70%);filter:blur(24px);animation:mist 20s ease-in-out infinite alternate}
+.mist.two{bottom:70px;animation-duration:28s;opacity:.6}
+@keyframes mist{to{transform:translateX(9%)}}
+.dust{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffe9a8;opacity:.5;animation:dust 9s ease-in-out infinite}
+@keyframes dust{50%{transform:translate(20px,-40px);opacity:.1}}
+.hero-in{position:relative;z-index:2;max-width:820px}
+.hero small{display:block;letter-spacing:6px;text-transform:uppercase;color:var(--gold);font:600 .8rem "Trebuchet MS",sans-serif;margin-bottom:14px;animation:rise 1.4s ease both}
+.hero h1{font-size:clamp(3.2rem,11vw,7rem);margin:0;letter-spacing:8px;text-transform:uppercase;color:#f4ecd8;text-shadow:0 4px 40px rgba(0,0,0,.7);animation:rise 1.6s .2s ease both}
+.hero p{font-size:1.25rem;font-style:italic;color:#e6dcc2;text-shadow:0 2px 14px #000;margin:18px auto 30px;animation:rise 1.6s .5s ease both}
+.hero .btns{animation:rise 1.6s .8s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+.btn{display:inline-block;padding:13px 30px;margin:5px;background:var(--gold);color:#13200f;font-size:.82rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;text-decoration:none;border:1px solid var(--gold);cursor:pointer;transition:.3s}
+.btn:hover{background:transparent;color:var(--gold)}
+.btn.alt{background:transparent;color:#f4ecd8;border-color:rgba(244,236,216,.6)}.btn.alt:hover{border-color:var(--gold);color:var(--gold)}
+.rv{opacity:0;transform:translateY(28px);transition:1s ease}.rv.in{opacity:1;transform:none}
+.quote{text-align:center;max-width:780px;margin:auto;font-size:1.5rem;font-style:italic;color:#e4dbc3;line-height:1.8}
+.quote cite{display:block;margin-top:14px;font:600 .8rem "Trebuchet MS",sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-style:normal}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.stat{background:var(--bg2);padding:30px 20px;text-align:center;color:var(--mute);font-size:.92rem}
+.stat b{display:block;font:700 2.5rem Georgia,serif;color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:26px}
+.card{background:var(--card);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;border:1px solid var(--line);transition:.45s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-8px);border-color:var(--gold)}
+.pic{width:100%;height:220px;aspect-ratio:16/11;position:relative;overflow:hidden;background:linear-gradient(160deg,#1f3d2b,#0e1d14)}
+.pic img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block;filter:saturate(.96) contrast(1.04);transition:transform .8s ease}
+.card:hover .pic img{transform:scale(1.08)}
+.pic::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(8,16,11,.75));pointer-events:none}
+.pic.miss{display:flex;align-items:center;justify-content:center;text-align:center;color:var(--mute);padding:12px;font:600 .8rem "Trebuchet MS",sans-serif}
+.badge{position:absolute;z-index:2;top:12px;left:12px;font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:5px 10px;color:#fff}
+.cr{background:#8e2a2a}.en{background:#9a5b1c}.vu{background:#7a6a1f}
+.card .body{padding:18px 20px 22px;flex:1}.card h3{margin:0;font-size:1.25rem}.card em{color:var(--gold);font-size:.85rem}.card p{margin:10px 0 0;font-size:.92rem;color:var(--mute)}
+.feature{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.tip{background:var(--card);padding:26px;border:1px solid var(--line);border-left:3px solid var(--moss);transition:.35s}
+.tip:hover{border-left-color:var(--gold);transform:translateY(-5px)}
+.tip h3{margin:0 0 8px;color:var(--gold);font-size:1.1rem}.tip p{margin:0;color:var(--mute);font-size:.94rem}
+.pledge{text-align:center;background:linear-gradient(rgba(10,22,14,.8),rgba(10,22,14,.9)),linear-gradient(135deg,#2f5a3a,#7a6b3a);border:1px solid var(--gold);padding:50px 20px;margin-top:50px}
+.pledge h2::after{margin:12px auto 0}.pledge p{font-style:italic;color:#e4dbc3}
+.pledge b{font:700 3rem Georgia,serif;color:var(--gold)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line)}
+td,th{padding:14px;border-bottom:1px solid var(--line);text-align:left}th{background:#1d3a28;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;font-size:.78rem}
+footer{text-align:center;padding:34px 5vw;color:var(--mute);font-size:.88rem;border-top:1px solid var(--line);font-style:italic}
+.modal{position:fixed;inset:0;background:rgba(3,8,5,.82);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.open{display:flex}.modal.open .box{animation:pop .5s ease}
+@keyframes pop{from{transform:translateY(24px);opacity:0}}
+.box{background:var(--card);max-width:660px;width:100%;max-height:90vh;overflow:auto;border:1px solid var(--gold)}.box .pic{height:310px;aspect-ratio:auto}.in{padding:26px}
+.in h2{margin:0}.in .story{border-left:2px solid var(--gold);padding-left:14px;font-style:italic;color:#e4dbc3;margin:16px 0}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.facts div{background:var(--bg2);padding:12px 14px;font-size:.88rem;border:1px solid var(--line)}
+.facts b{display:block;font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.x{float:right;background:transparent;color:var(--ink);border:1px solid var(--line);width:36px;height:36px;font-size:1.1rem;cursor:pointer}.x:hover{border-color:var(--gold);color:var(--gold)}
+@media(max-width:560px){.facts{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav><span class="logo">Lastlight</span>
+<div class="tabs"><a href="#home">Home</a><a href="#animals">Animals</a><a href="#plants">Plants</a><a href="#protect">Protect</a><a href="#about">Red Data Book</a></div></nav>
+
+<main>
+<div class="page" id="home">
+<div class="hero has-photo" id="hero"><div class="photo" style="background-image:url('https://images.unsplash.com/photo-1549480017-d76466a4b7e8?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D')"></div>
+<svg class="scene" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><filter id="bl"><feGaussianBlur stdDeviation="5"/></filter><filter id="bl2"><feGaussianBlur stdDeviation="2"/></filter></defs>
+<g fill="#050d08" opacity=".55" filter="url(#bl)"><rect x="80" y="0" width="46" height="600"/><rect x="330" y="0" width="60" height="600"/><rect x="620" y="0" width="38" height="600"/><rect x="900" y="0" width="64" height="600"/><rect x="1180" y="0" width="44" height="600"/></g>
+<g fill="#040a06" opacity=".9" filter="url(#bl2)"><rect x="-10" y="0" width="90" height="600"/><rect x="200" y="0" width="30" height="600"/><rect x="470" y="0" width="52" height="600"/><rect x="760" y="0" width="28" height="600"/><rect x="1050" y="0" width="40" height="600"/><rect x="1330" y="0" width="120" height="600"/></g></svg>
+<div class="rays"></div><div class="mist"></div><div class="mist two"></div>
+<span class="dust" style="left:22%;top:55%"></span><span class="dust" style="left:48%;top:40%;animation-delay:-3s"></span><span class="dust" style="left:70%;top:60%;animation-delay:-6s"></span><span class="dust" style="left:84%;top:35%;animation-delay:-2s"></span>
+<div class="hero-in"><small>Red Data Book · Wildlife Archive</small><h1>Lastlight</h1><p>The forest is growing quieter. Every name in this book is a life still holding on.</p><div class="btns"><a class="btn" href="#animals">Meet the vanishing</a><a class="btn alt" href="#protect">How to help</a></div></div></div>
+<section>
+<p class="quote rv">“When the last of its kind is gone, no photograph, no museum, no apology can bring it back. We still have time to choose.”<cite>Why this book exists</cite></p><br><br><h2>Why it matters</h2><p class="sub">Every species is part of a web. Lose one, and the rest feel it.</p>
+<div class="stats rv"><div class="stat"><b>40,000+</b>species threatened (IUCN)</div><div class="stat"><b>7</b>animals featured</div><div class="stat"><b>5</b>plants featured</div><div class="stat"><b>#1</b>threat: habitat loss</div></div>
+<div class="pledge rv"><h2>Make a promise</h2><p>“I will speak for the ones who cannot, and never buy what harms them.”</p><b id="count">0</b><p id="msg">promises made on this device</p><button class="btn" id="pl">I promise</button></div>
+</section></div>
+
+<div class="page" id="animals"><section><h2>Animals in danger</h2><p class="sub">Click any card for full details.</p><div class="grid" id="gA"></div></section></div>
+<div class="page" id="plants"><section><h2>Plants in danger</h2><p class="sub">Plants are the base of every habitat, and many are disappearing quietly.</p><div class="grid" id="gP"></div></section></div>
+
+<div class="page" id="protect"><section><h2>How we can protect them</h2><p class="sub">Conservation works when governments, communities and individuals act together.</p>
+<div class="feature rv">
+<div class="tip"><h3>Protect habitats</h3><p>Support national parks and sanctuaries. Plant native trees and avoid products linked to deforestation.</p></div>
+<div class="tip"><h3>Stop wildlife trade</h3><p>Never buy ivory, skins, exotic pets or illegal timber. Report poaching to forest authorities.</p></div>
+<div class="tip"><h3>Reduce plastic</h3><p>Plastic chokes turtles, birds and fish. Carry a bag and bottle; join clean-up drives.</p></div>
+<div class="tip"><h3>Support research</h3><p>Donate to or volunteer with trusted groups such as WWF, WII and local NGOs.</p></div>
+<div class="tip"><h3>Spread awareness</h3><p>Talk about endangered species at school, college and online.</p></div>
+<div class="tip"><h3>Fight climate change</h3><p>Save energy, use public transport and choose sustainable food.</p></div>
+<div class="tip"><h3>Grow native plants</h3><p>Home gardens with native species feed pollinators and birds.</p></div>
+<div class="tip"><h3>Be a responsible tourist</h3><p>Stay on trails, keep distance from wildlife and never feed animals.</p></div>
+</div></section></div>
+
+<div class="page" id="about"><section><h2>What is the Red Data Book?</h2><p class="sub">A public record of species at risk of extinction, started by the IUCN in 1964.</p>
+<table><tr><th>Category</th><th>Meaning</th></tr>
+<tr><td>Vulnerable (VU)</td><td>High risk of extinction in the wild</td></tr>
+<tr><td>Endangered (EN)</td><td>Very high risk of extinction in the wild</td></tr>
+<tr><td>Critically Endangered (CR)</td><td>Extremely high risk of extinction in the wild</td></tr>
+<tr><td>Extinct in the Wild (EW)</td><td>Survives only in captivity or cultivation</td></tr></table>
+<p>The data helps governments make laws, protect habitats and plan breeding programmes. Status changes as new assessments are published, so always check the official IUCN Red List for the latest.</p></section></div>
+</main>
+
+<footer>Made for wildlife · Status data based on the IUCN Red List · Photos credited to their original photographers</footer>
+<div class="modal" id="modal"><div class="box" id="box"></div></div>
+
+<script>
+const S=[
+{
+  n:"Bengal Tiger",
+  sci:"Panthera tigris tigris",
+  t:"A",
+  s:"Endangered",
+  c:"en",
+  f:"https://images.unsplash.com/photo-1549480017-d76466a4b7e8?q=80&w=1156&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center 25%",
+  h:"Tropical forests, mangroves, grasslands",
+  r:"India, Bangladesh, Nepal, Bhutan",
+  pop:"About 2,500–3,000 in the wild",
+  d:"India's national animal and an apex predator. Each tiger has a unique stripe pattern, like a fingerprint.",
+  th:"Poaching, habitat loss, human–tiger conflict."
+},
+{
+  n:"Sumatran Orangutan",
+  sci:"Pongo abelii",
+  t:"A",
+  s:"Critically Endangered",
+  c:"cr",
+  f:"https://plus.unsplash.com/premium_photo-1661821186579-69450615e690?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center 20%",
+  h:"Rainforests of northern Sumatra",
+  r:"Indonesia",
+  pop:"Fewer than 14,000",
+  d:"One of our closest relatives, sharing about 97% of our DNA, and an expert tool user.",
+  th:"Palm-oil plantations, illegal logging, pet trade."
+},
+{
+  n:"Black Rhino",
+  sci:"Diceros bicornis",
+  t:"A",
+  s:"Critically Endangered",
+  c:"cr",
+  f:"https://images.unsplash.com/photo-1717652453979-125ec922c68b?q=80&w=1163&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center center",
+  h:"Savannas and shrublands",
+  r:"Southern and eastern Africa",
+  pop:"About 6,000",
+  d:"A browser with a hooked upper lip. Numbers fell by about 98% in the 20th century but are slowly recovering.",
+  th:"Poaching for horn, habitat loss."
+},
+{
+  n:"Great Indian Bustard",
+  sci:"Ardeotis nigriceps",
+  t:"A",
+  s:"Critically Endangered",
+  c:"cr",
+  f:"https://images.unsplash.com/photo-1674707865910-8873cc9f82ce?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center 25%",
+  h:"Dry grasslands and scrub",
+  r:"Rajasthan and Gujarat, India",
+  pop:"Around 150 or fewer",
+  d:"One of the heaviest flying birds in the world and once a candidate for India's national bird.",
+  th:"Power-line collisions, grassland loss, free-ranging dogs."
+},
+{
+  n:"Hawksbill Turtle",
+  sci:"Eretmochelys imbricata",
+  t:"A",
+  s:"Critically Endangered",
+  c:"cr",
+  f:"https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?q=80&w=1228&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center center",
+  h:"Coral reefs and tropical seas",
+  r:"Tropical oceans worldwide",
+  pop:"Declined over 80% in three generations",
+  d:"Named for its bird-like beak, it eats sponges and helps keep coral reefs healthy.",
+  th:"Tortoiseshell trade, plastic pollution, nesting-beach loss."
+},
+{
+  n:"Gharial",
+  sci:"Gavialis gangeticus",
+  t:"A",
+  s:"Critically Endangered",
+  c:"cr",
+  f:"https://plus.unsplash.com/premium_photo-1664304447077-e23c350fd2f7?q=80&w=1181&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center center",
+  h:"Clean, fast-flowing rivers",
+  r:"India and Nepal",
+  pop:"Roughly 650 mature adults",
+  d:"A fish-eating crocodilian with a long, thin snout. Males grow a knob on the snout called a “ghara”.",
+  th:"River pollution, sand mining, dams, fishing nets."
+},
+{
+  n:"Snow Leopard",
+  sci:"Panthera uncia",
+  t:"A",
+  s:"Vulnerable",
+  c:"vu",
+  f:"https://images.unsplash.com/photo-1639841377321-b54eab2c8430?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center 25%",
+  h:"High mountains of Central and South Asia",
+  r:"Himalayas, Altai, Tien Shan",
+  pop:"About 4,000–6,500",
+  d:"The “ghost of the mountains” is perfectly camouflaged and can leap up to 15 metres.",
+  th:"Poaching, loss of prey, retaliation by herders."
+},
+{
+  n:"Red Sandalwood",
+  sci:"Pterocarpus santalinus",
+  t:"P",
+  s:"Endangered",
+  c:"en",
+  f:"https://images.unsplash.com/photo-1416425816930-a02a589195d2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center center",
+  h:"Dry deciduous forests",
+  r:"Eastern Ghats, India",
+  pop:"Declining in the wild",
+  d:"A rare tree prized for its deep red heartwood, used in furniture, dyes and traditional medicine.",
+  th:"Illegal felling and smuggling."
+},
+{
+  n:"Wollemi Pine",
+  sci:"Wollemia nobilis",
+  t:"P",
+  s:"Critically Endangered",
+  c:"cr",
+  f:"https://plus.unsplash.com/premium_photo-1674831527724-58657bc87b55?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center 35%",
+  h:"Hidden rainforest canyons",
+  r:"Blue Mountains, Australia",
+  pop:"Fewer than 100 mature trees",
+  d:"A “living fossil” known only from fossils until a few living trees were found in 1994.",
+  th:"Fire, fungal disease, tiny wild population."
+},
+{
+  n:"Himalayan Yew",
+  sci:"Taxus wallichiana",
+  t:"P",
+  s:"Endangered",
+  c:"en",
+  f:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrfOW-QHDh7SqsYV8P7tk14gxRBvxGhvfs5CM-0pSYyzarsMB5nkr770M&s=10",
+  pos:"center center",
+  h:"Temperate Himalayan forests",
+  r:"Himalayas, India, Nepal, China",
+  pop:"Declining",
+  d:"Its bark and needles contain compounds used to make anti-cancer drugs, which led to heavy harvesting.",
+  th:"Overharvesting, forest loss."
+},
+{
+  n:"Blue Vanda Orchid",
+  sci:"Vanda coerulea",
+  t:"P",
+  s:"Endangered",
+  c:"en",
+  f:"https://m.media-amazon.com/images/I/81iNgChDqyL._AC_UF1000,1000_QL80_.jpg",
+  pos:"center center",
+  h:"Open oak forests, high elevation",
+  r:"North-east India, Myanmar, Thailand",
+  pop:"Declining",
+  d:"One of the few truly blue orchids, it is famous for its large, speckled flowers.",
+  th:"Collection for trade, deforestation."
+},
+{
+  n:"Rafflesia",
+  sci:"Rafflesia arnoldii",
+  t:"P",
+  s:"Endangered",
+  c:"en",
+  f:"https://images.unsplash.com/photo-1654180467454-64cadaf95b95?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+  pos:"center center",
+  h:"Tropical rainforest",
+  r:"Sumatra and Borneo",
+  pop:"Rare and scattered",
+  d:"Produces the largest single flower on Earth, up to about a metre wide, and has no leaves or roots.",
+  th:"Rainforest clearing, flower damage by visitors."
+}
+];
+
+const K=["#6f8f5a"];const $=id=>document.getElementById(id);
+
+function pic(x){
+  const pos=x.pos||"center center";
+  return `<div class="pic" style="--k:${K[S.indexOf(x)%K.length]}"><img src="${x.f}" alt="${x.n}" style="object-position:${pos}" loading="lazy"><span class="badge ${x.c}">${x.s}</span></div>`;
+}
+
+function cards(t){
+  return S.map((x,i)=>x.t===t?`<div class="card rv" style="--k:${K[i%K.length]}" onclick="openM(${i})">${pic(x)}<div class="body"><h3>${x.n}</h3><em>${x.sci}</em><p>${x.d.slice(0,85)}…</p></div></div>`:"").join("");
+}
+
+$("gA").innerHTML=cards("A");
+$("gP").innerHTML=cards("P");
+
+function openM(i){
+  const x=S[i];
+  $("box").innerHTML=pic(x)+`<div class="in"><button class="x" onclick="closeM()">✕</button><h2>${x.n}</h2><em>${x.sci}</em><p>${x.d}</p><p class="story">If we lose the ${x.n}, we lose more than a species. We lose a story that took millions of years to write, and a voice this world will never hear again.</p><div class="facts"><div><b>Habitat</b>${x.h}</div><div><b>Range</b>${x.r}</div><div><b>Population</b>${x.pop}</div><div><b>Main threats</b>${x.th}</div></div></div>`;
+  $("modal").classList.add("open");
+}
+
+function closeM(){$("modal").classList.remove("open")}
+$("modal").onclick=e=>{if(e.target.id==="modal")closeM()};
+document.onkeydown=e=>{if(e.key==="Escape")closeM()};
+
+function route(){
+  const h=(location.hash||"#home").slice(1);
+  const id=document.getElementById(h)?.classList.contains("page")?h:"home";
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id===id));
+  document.querySelectorAll(".tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+id));
+  window.scrollTo(0,0);
+}
+addEventListener("hashchange",route);route();
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
+function obs(){document.querySelectorAll(".rv:not(.in)").forEach(el=>io.observe(el))}obs();
+addEventListener("hashchange",()=>setTimeout(obs,50));
+
+let n=0;try{n=+localStorage.getItem("ll_pledge")||0}catch(e){}$("count").textContent=n;
+$("pl").onclick=()=>{if(n){$("msg").textContent="You already pledged. Thank you!";return}n=1;$("count").textContent=n;$("msg").textContent="Thank you. The forest heard you.";try{localStorage.setItem("ll_pledge",n)}catch(e){}};
+</script>
+</body>
+</html>
